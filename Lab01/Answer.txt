@@ -1,0 +1,34 @@
+THÍ NGHIỆM OOP - LAB 01
+
+HỌ VÀ TÊN: Nguyễn Đình Lực
+MSSV: 202416973
+
+
+
+Exercise 6.1: ChoosingOption
+
+Question 1: What happens if users choose "Cancel"?
+Answer: 
+Khi người dùng chọn "Cancel" (hoặc nhấn nút 'X' để đóng hộp thoại), phương thức `JOptionPane.showConfirmDialog` sẽ trả về giá trị nguyên tương ứng với hằng số `JOptionPane.CANCEL_OPTION` (giá trị 2) hoặc `JOptionPane.CLOSED_OPTION` (giá trị -1). 
+Trong đoạn code hiện tại, biểu thức điều kiện `(option == JOptionPane.YES_OPTION)` sẽ trả về `false`. Do đó, toán tử 3 ngôi (ternary operator) `? "Yes" : "No"` sẽ thực thi vế sai và trả về chuỗi "No". 
+Kết quả: Chương trình vẫn chạy tiếp và hiển thị hộp thoại thông báo: "You've chosen: No".
+
+Question 2: How to customize the options to users, e.g. only two options: "Yes" and "No", OR "I do" and "I don't"?
+Answer: 
+- Để chỉ hiển thị 2 tùy chọn mặc định là "Yes" và "No": Chúng ta cần thêm tham số `optionType` với hằng số `JOptionPane.YES_NO_OPTION` vào phương thức `showConfirmDialog`.
+Ví dụ: 
+int option = JOptionPane.showConfirmDialog(null, "Your message here", "Title", JOptionPane.YES_NO_OPTION);
+
+- Để tùy chỉnh chữ trên các nút bấm thành "I do" và "I don't": Chúng ta không dùng `showConfirmDialog` nữa mà phải sử dụng phương thức linh hoạt hơn là `JOptionPane.showOptionDialog`. Ta sẽ truyền một mảng Object chứa các chuỗi văn bản (String) muốn hiển thị vào tham số `options`.
+Ví dụ:
+Object[] options = {"I do", "I don't"};
+int option = JOptionPane.showOptionDialog(null, 
+        "Do you want to change to the first class ticket?", 
+        "Custom Option", 
+        JOptionPane.YES_NO_OPTION, 
+        JOptionPane.QUESTION_MESSAGE, 
+        null, 
+        options, 
+        options[0]);
+
+HẾT
