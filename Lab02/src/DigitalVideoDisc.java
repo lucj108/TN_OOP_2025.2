@@ -6,19 +6,19 @@ public class DigitalVideoDisc {
     private float cost;
 
     //-----
-    // Tạo DVD với tiêu đề
+    //Tạo DVD với tiêu đề
     public DigitalVideoDisc(String title) {
         this.title = title;
     }
 
-    // Tạo DVD với tiêu đề và thể loại và giá
+    //Tạo DVD với tiêu đề và thể loại và giá
     public DigitalVideoDisc(String title, String category, float cost) {
         this.title = title;
         this.category = category;
         this.cost = cost;
     }
 
-    // Tạo DVD với tiêu đề, thể loại, đạo diễn và giá
+    //Tạo DVD với tiêu đề, thể loại, đạo diễn và giá
     public DigitalVideoDisc(String title, String category, String director, float cost) {
         this.title = title;
         this.category = category;
@@ -26,7 +26,7 @@ public class DigitalVideoDisc {
         this.cost = cost;
     }
 
-    // Tạo DVD với đầy đủ thông tin
+    //Tạo DVD đầy đủ
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
         this.title = title;
         this.category = category;
@@ -35,7 +35,7 @@ public class DigitalVideoDisc {
         this.cost = cost;
     }
 
-    // 3. Getter
+    //getter
     public String getTitle() { return title; }
     public String getCategory() { return category; }
     public String getDirector() { return director; }
