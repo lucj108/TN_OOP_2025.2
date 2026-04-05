@@ -1,8 +1,0 @@
-
-Báo cáo Lab02
-Họ và tên: Nguyễn Đình Lực - 202416973 
-
-Câu hỏi: Nếu bạn tạo một Constructor để đúc DVD bằng tiêu đề (title), sau đó tạo thêm một Constructor nữa để đúc DVD bằng thể loại (category). Java có cho phép làm điều này không?
-Bài làm:
-Java không cho phép và Eclipse báo lỗi đỏ, vì:
-Theo em tìm hiểu, nguyên nhân là do hai hàm Constructor này đều nhận vào đúng một tham số có kiểu dữ liệu là String (chuỗi chữ). Trình biên dịch của Java chỉ quan tâm đến kiểu dữ liệu chứ không quan tâm mình đặt tên biến là title hay category. Vì hai hàm này giống hệt nhau về "chữ ký" (đều là DigitalVideoDisc(String)), nên khi mình gõ lệnh tạo đĩa mới, Java sẽ bị rối, không biết chuỗi chữ mình đưa vào đang dành cho hàm nào. Để dùng tính năng Nạp chồng (Overloading), số lượng tham số hoặc kiểu dữ liệu của các tham số giữa các Constructor phải khác nhau.
