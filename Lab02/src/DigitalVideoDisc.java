@@ -5,7 +5,50 @@ public class DigitalVideoDisc {
     private int length;
     private float cost;
 
-    
+    //getter
+    public String getTitle()
+    {
+        return title;
+    }
+    public String getCategory()
+    {
+        return category;
+    }
+    public String getDirector()
+    {
+        return director;
+    }
+    public int getLength()
+    {
+        return length;
+    }
+    public float getCost()
+    {
+        return cost;
+    }
+    //setter
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+
+    //-----
     // Tạo DVD với tiêu đề
     public DigitalVideoDisc(String title) {
         this.title = title;
