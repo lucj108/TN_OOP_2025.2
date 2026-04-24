@@ -1,0 +1,27 @@
+ANSWERS.TXT - LAB 03
+
+1. Section 2.1 - Method Overloading (Varargs vs. Array)
+
+Question: Compare to an array parameter. What do you prefer in this case?
+
+Answer: Em ưu tiên sử dụng cú pháp Varargs (DigitalVideoDisc...) thay vì tham số dạng mảng (DigitalVideoDisc[]). Cú pháp Varargs cung cấp sự linh hoạt cao hơn khi gọi hàm, cho phép truyền trực tiếp một danh sách các tham số phân tách bằng dấu phẩy mà không cần phải khởi tạo mảng tường minh. Điều này giúp mã nguồn (source code) ngắn gọn, sạch sẽ và dễ bảo trì hơn.
+
+2. Section 3 - Parameter Passing Mechanism
+
+Question 1: Is JAVA a Pass by Value or a Pass by Reference programming language?
+
+Answer: Java hoàn toàn là ngôn ngữ truyền tham trị (Pass by Value). Khi truyền một đối tượng (object) vào phương thức, Java thực chất đang truyền đi bản sao giá trị tham chiếu (địa chỉ bộ nhớ) của đối tượng đó, chứ không truyền chính bản thân đối tượng.
+
+Question 2: After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+
+Answer: Phương thức swap chỉ nhận được bản sao tham chiếu của hai đối tượng. Việc hoán đổi bên trong phương thức thực chất chỉ làm thay đổi giá trị tham chiếu của hai biến cục bộ (o1 và o2), hoàn toàn không tác động đến các biến tham chiếu gốc (jungleDVD và cinderellaDVD) ngoài hàm main. Do đó, hai đối tượng thực tế không bị hoán đổi.
+
+Question 3: After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+
+Answer: Tham số cục bộ dvd trong phương thức changeTitle lưu giữ bản sao tham chiếu trỏ đến cùng một đối tượng vật lý trong bộ nhớ với biến gốc jungleDVD. Lệnh dvd.setTitle(title) đã trực tiếp can thiệp và làm biến đổi (mutate) trạng thái của đối tượng này. Lệnh gán dvd = new DigitalVideoDisc(...) ở dòng tiếp theo chỉ thay đổi con trỏ của biến cục bộ dvd sang một vùng nhớ mới, không tác động đến đối tượng gốc vốn đã bị thay đổi thuộc tính title trước đó.
+
+3. Section 6 - Cart Management Methods
+
+Question: Write a toString() method for the DigitalVideoDisc class. What should be the return type of this method?
+
+Answer: Kiểu trả về bắt buộc của phương thức toString() là String. Phương thức này thực hiện ghi đè (override) phương thức gốc của lớp Object nhằm trả về một chuỗi ký tự chứa thông tin chi tiết của đối tượng hiện tại (bao gồm Title, Category, Director, Length, Cost), hỗ trợ cho quá trình xuất dữ liệu ra màn hình thông qua phương thức print().
