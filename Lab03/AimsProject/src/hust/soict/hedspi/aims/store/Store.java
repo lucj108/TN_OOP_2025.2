@@ -7,7 +7,6 @@ public class Store {
     private int qtyInStore = 0;
     private DigitalVideoDisc itemsInStore[] = new DigitalVideoDisc[MAX_CAPACITY];
     
-    // them dia vao cua hang
     public void addDVD(DigitalVideoDisc dvd) {
         if (qtyInStore < MAX_CAPACITY) {
             itemsInStore[qtyInStore] = dvd;
@@ -37,6 +36,7 @@ public class Store {
                 itemsInStore[i] = itemsInStore[i + 1];
             }
             itemsInStore[qtyInStore - 1] = null; // don rac bo nho
+
             qtyInStore--;
             System.out.println("The disc \"" + dvd.getTitle() + "\" has been removed from the store.");
         } else {
@@ -44,3 +44,4 @@ public class Store {
         }
     }
 }
+

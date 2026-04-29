@@ -49,7 +49,11 @@ public class Cart {
             for (int i = indexToRemove; i < qtyOrdered - 1; i++) {
                 itemsOrdered[i] = itemsOrdered[i + 1];
             }
+<<<<<<< HEAD
             itemsOrdered[qtyOrdered - 1] = null; // don rac bo nho
+=======
+            itemsOrdered[qtyOrdered - 1] = null; // don rac
+>>>>>>> 139ca67a8c251aa34277a797cccc30cb8d2f1ae9
             qtyOrdered--;
             System.out.println("The disc \"" + disc.getTitle() + "\" has been removed.");
         } else {
@@ -105,4 +109,8 @@ public class Cart {
             System.out.println("No DVD with title \"" + targetTitle + "\" found!");
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 139ca67a8c251aa34277a797cccc30cb8d2f1ae9
