@@ -1,6 +1,7 @@
 package hust.soict.hedspi.test.store;
 import hust.soict.hedspi.aims.store.*;
 import hust.soict.hedspi.aims.disc.*;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 
 public class StoreTest {
 

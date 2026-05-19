@@ -1,48 +1,42 @@
 package hust.soict.hedspi.aims.cart;
-import hust.soict.hedspi.aims.disc.*;
+
+import java.util.ArrayList;
+
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.Media;
 
 public class Cart {
 
 	public static final int MAX_NUMBERS_ORDERED = 20;
-	private DigitalVideoDisc itemsOrdered[] = 
-			new DigitalVideoDisc[MAX_NUMBERS_ORDERED];
+	private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
 	
-	private int qtyOrdered = 0;
-	
-	public void addDigitalVideoDisc(DigitalVideoDisc disc) {
-        if (qtyOrdered < MAX_NUMBERS_ORDERED) {
-            itemsOrdered[qtyOrdered] = disc; 
-            qtyOrdered++;
-            System.out.println("The disc has been added");
-        } else {
-            System.out.println("The cart is almost full");
-        }
-    }
-
-    public void removeDigitalVideoDisc(DigitalVideoDisc disc) {
-        for (int i = 0; i < qtyOrdered; i++) {
-            if (itemsOrdered[i] == disc) { 
-                for (int j = i; j < qtyOrdered - 1; j++) {
-                    itemsOrdered[j] = itemsOrdered[j + 1];
-                }
-                itemsOrdered[qtyOrdered - 1] = null; 
-                qtyOrdered--; 
-                System.out.println("The disc has been removed");
-                return;
-            }
-        }
-        System.out.println("The disc is not in the cart");
-    }
-
-    public float totalCost() {
+	public float totalCost() {
         float sum = 0;
-        for (int i = 0; i < qtyOrdered; i++) {
-            sum += itemsOrdered[i].getCost(); 
+        for (Media temp : itemsOrdered) {
+        	sum += temp.getCost();
         }
         return sum;
     }
     
-    // Lab03
+	public void addMedia(Media media) {
+        if (!itemsOrdered.contains(media)) {
+            itemsOrdered.add(media);
+            System.out.println("The media has been added.");
+        } else {
+            System.out.println("The media is already in the cart.");
+        }
+    }
+
+    public void removeMedia(Media media) {
+        if (itemsOrdered.contains(media)) {
+            itemsOrdered.remove(media);
+            System.out.println("The media has been removed.");
+        } else {
+            System.out.println("The media is not in the cart.");
+        }
+    }
+	/*
+    // -----------------------------Lab03-------------------------------------------------------------
     // Thuc hanh nap chong phuong thuc - Phan 2
     public void addDigitalVideoDisc(DigitalVideoDisc [] dvdList) { // Khac biet kieu tham so
     	
@@ -92,4 +86,5 @@ public class Cart {
             System.out.println("No match found for title: " + title);
         }
     }
+    */
 }

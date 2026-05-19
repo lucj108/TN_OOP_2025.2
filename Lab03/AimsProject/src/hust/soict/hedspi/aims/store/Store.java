@@ -1,35 +1,28 @@
 package hust.soict.hedspi.aims.store;
-import hust.soict.hedspi.aims.disc.*;
+import java.util.ArrayList;
+
+import hust.soict.hedspi.aims.media.Media;
 
 public class Store {
 	
 	public static final int MAX_NUMBERS_STORE = 1000;
-	private DigitalVideoDisc itemsInStore[] =
-			new DigitalVideoDisc[MAX_NUMBERS_STORE];
+	private ArrayList<Media> itemsInStore = new ArrayList<Media>();
 	
-	private int qtyInStore=0;
-	
-	public void addDVD(DigitalVideoDisc dvd) {
-		if (qtyInStore < MAX_NUMBERS_STORE) {
-			itemsInStore[qtyInStore++] = dvd;
-			System.out.println("The disc has been added!");
-		}
-		else {
-            System.out.println("The Store is almost full!");
+	public void addMedia(Media media) {
+		if (itemsInStore.contains(media)) {
+            System.out.println("The media already exists!");
+        } else {
+            itemsInStore.add(media);
+            System.out.println("The media has been added!");
         }
-	}
-	
-	public void removeDVD(DigitalVideoDisc dvd) {
-		for (int i = 0; i < qtyInStore; i++) {
-			if (dvd == itemsInStore[i]) {
-				for (int j = i; j < qtyInStore-1; j++) {
-					itemsInStore[j] = itemsInStore[j+1];
-				}
-				itemsInStore[--qtyInStore] = null;
-                System.out.println("The disc has been removed");
-				return;
-			}
-		}
-		System.out.println("The disc is not in the Store!");
-	}
+    }
+
+    public void removeMedia(Media media) {
+        if (itemsInStore.contains(media)) {
+            itemsInStore.remove(media);
+            System.out.println("The media has been removed!");
+        } else {
+            System.out.println("The media is not in the store.");
+        }
+    }
 }

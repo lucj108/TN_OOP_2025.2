@@ -47,8 +47,10 @@ public abstract class Media {
 	}
 
 
-	public Media() {
-		// TODO Auto-generated constructor stub
-	}
+	public Media(String title, String category, float cost) {
+        this.title = title;
+        this.category = category;
+        this.cost = cost;
+    }
 
 }
