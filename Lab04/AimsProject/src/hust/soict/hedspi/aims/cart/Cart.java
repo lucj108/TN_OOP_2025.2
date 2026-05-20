@@ -121,7 +121,7 @@ public class Cart {
     	return null;
     }
     
-   /* public List<Media> filterById(int id) {
+   public List<Media> filterById(int id) {
         List<Media> filteredList = new ArrayList<Media>();
         for (Media m : itemsOrdered) {
             if (m.getId() == id) {
