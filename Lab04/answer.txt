@@ -1,0 +1,29 @@
+                        ANSWERS.TXT - LAB 04
+
+Câu 1: Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?
+- Trả lời: 
++ Lớp `Cart` là aggregate của `Media` (chứa danh sách Media).
++ Lớp `Store` là aggregate của `Media` (chứa danh sách Media).
++ Lớp `CompactDisc` là aggregate của `Track` (chứa danh sách Track).
++ Khởi tạo: Các lớp tổng (Cart, Store, CompactDisc) ĐÃ khởi tạo cho các thành phần phần tử của chúng thông qua việc cấp phát bộ nhớ cho ArrayList (ví dụ: `new ArrayList<Media>()`) ngay lúc khai báo thuộc tính hoặc bên trong constructor mặc định.
+
+Câu 2: In the equals() method, if the passing object is not an instance of Media, what happens? 
+- Trả lời: Nếu ép kiểu trực tiếp đối tượng (Object obj) sang Media mà không kiểm tra, Java sẽ bị lỗi `ClassCastException` làm gián đoạn chương trình. Để khắc phục, cần dùng toán tử `instanceof` để kiểm tra kiểu dữ liệu trước khi ép kiểu; nếu không phải instance của Media thì trả về `false`.
+
+Câu 3: Polymorphism with toString() method. Observe what happens and explain in detail. 
+- Trả lời: Khi duyệt qua danh sách `ArrayList<Media>` và gọi `m.toString()`, Java sẽ in ra đúng chuỗi định dạng của lớp con thực sự (Book, CompactDisc, hoặc DigitalVideoDisc) thay vì của lớp cha `Media`. Giải thích: Đây là tính Đa hình qua cơ chế Dynamic Binding (liên kết động). Tại thời điểm chạy, JVM sẽ nhìn vào kiểu thực tế của đối tượng trong bộ nhớ để gọi hàm `toString()` đã được override tương ứng của lớp đó.
+
+Câu 4: Suppose we are taking this Comparable interface approach. What class should implement the Comparable interface? 
+- Trả lời: Lớp `Media` sẽ implement interface `Comparable<Media>`.
+
+Câu 5: In those classes, how should you implement the compareTo() method to reflect the ordering that we want? 
+- Trả lời: Trong lớp `Media`, override hàm `compareTo(Media other)`. Thuật toán: Dùng phương thức `compareTo()` của lớp `String` để so sánh thuộc tính `title` trước. Nếu `title` giống nhau (kết quả trả về 0), tiếp tục so sánh thuộc tính `cost`. Hàm trả về số âm (<0), số 0, hoặc dương (>0) để quyết định thứ tự.
+
+Câu 6: Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach? 
+- Trả lời: Không. Interface `Comparable` chỉ cho phép định nghĩa MỘT quy tắc sắp xếp mặc định duy nhất thông qua một thân hàm `compareTo()` duy nhất. Muốn hỗ trợ nhiều quy tắc sắp xếp khác nhau, bắt buộc phải dùng `Comparator`.
+
+Câu 7: Suppose the DVDs has a different ordering rule from the other media types (by title -> decreasing length -> cost). How would you modify your code to allow this? 
+- Trả lời: Trong lớp `DigitalVideoDisc`, ta sẽ tiến hành override lại hàm `compareTo()` của lớp cha `Media`. Thuật toán: 
+1. Gọi `super.compareTo()` để so sánh `title`. 
+2. Nếu `title` bằng nhau, so sánh `length` theo thứ tự giảm dần.
+3. Nếu `length` cũng bằng nhau, tiếp tục so sánh `cost`.
