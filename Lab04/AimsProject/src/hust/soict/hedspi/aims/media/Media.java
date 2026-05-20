@@ -22,18 +22,8 @@ public abstract class Media {
 	}
 
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
 	public String getCategory() {
 		return category;
-	}
-
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 
@@ -42,15 +32,19 @@ public abstract class Media {
 	}
 
 
-	public void setCost(float cost) {
-		this.cost = cost;
-	}
-
-
 	public Media(String title, String category, float cost) {
         this.title = title;
         this.category = category;
         this.cost = cost;
     }
-
+	
+	@Override
+	public boolean equals(Object tmp) {
+		if (this == tmp) return true;
+		if (tmp == null || !(tmp instanceof Media)) return false;
+		Media other = (Media) tmp;
+		return this.getTitle() != null && 
+				this.getTitle().equalsIgnoreCase(other.getTitle());
+	}
+	
 }
