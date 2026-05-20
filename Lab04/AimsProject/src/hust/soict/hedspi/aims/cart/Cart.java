@@ -94,12 +94,12 @@ public class Cart {
     // Test sort - Phan 12
     public void sortByTitle() {
         Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
-        System.out.println("Giỏ hàng đã được sắp xếp theo tiêu đề!");
+        System.out.println("The Cart is sorted by Title!");
     }
 
     public void sortByCost() {
         Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
-        System.out.println("Giỏ hàng đã được sắp xếp theo giá thành!");
+        System.out.println("The Cart is sorted by Cost!");
     }
     
     public void print() {
@@ -121,9 +121,22 @@ public class Cart {
     	return null;
     }
     
-    public List<Media> filterById(int id) {
+   /* public List<Media> filterById(int id) {
         List<Media> filteredList = new ArrayList<Media>();
         for (Media m : itemsOrdered) {
+            if (m.getId() == id) {
+                filteredList.add(m);
+            }
+        }
+        return filteredList;
+    }
+    */
+    public List<Media> filterById(int id) {
+        List<Media> filteredList = new ArrayList<Media>();
+        System.out.println("DEBUG: Dang tim kiem ID: " + id); // In ra xem nó nhận ID nào
+        
+        for (Media m : itemsOrdered) {
+            System.out.println("DEBUG: Dang kiem tra Media: " + m.getTitle() + " - ID cua no la: " + m.getId()); // In ra ID của từng món
             if (m.getId() == id) {
                 filteredList.add(m);
             }
