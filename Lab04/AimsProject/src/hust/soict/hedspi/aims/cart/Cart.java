@@ -130,19 +130,6 @@ public class Cart {
         }
         return filteredList;
     }
-    */
-    public List<Media> filterById(int id) {
-        List<Media> filteredList = new ArrayList<Media>();
-        System.out.println("DEBUG: Dang tim kiem ID: " + id); // In ra xem nó nhận ID nào
-        
-        for (Media m : itemsOrdered) {
-            System.out.println("DEBUG: Dang kiem tra Media: " + m.getTitle() + " - ID cua no la: " + m.getId()); // In ra ID của từng món
-            if (m.getId() == id) {
-                filteredList.add(m);
-            }
-        }
-        return filteredList;
-    }
 
     public List<Media> filterByTitle(String title) {
         List<Media> filteredList = new ArrayList<Media>();
