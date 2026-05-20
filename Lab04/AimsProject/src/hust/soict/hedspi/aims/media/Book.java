@@ -28,4 +28,8 @@ public class Book extends Media {
 		super(title, category, cost);
 	}
 
+	@Override
+	public String toString() {
+    	return "Book - " + this.getTitle() + " - " + this.getCategory() + ": " + this.getCost() + " $";
+    }
 }
