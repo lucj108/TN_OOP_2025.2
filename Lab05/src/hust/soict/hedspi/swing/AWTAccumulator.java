@@ -6,6 +6,8 @@ import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class AWTAccumulator extends Frame {
     private TextField tfInput;
@@ -27,11 +29,19 @@ public class AWTAccumulator extends Frame {
         tfOutput = new TextField(10);
         tfOutput.setEditable(false);
         add(tfOutput);
-
+        
+        addWindowListener(new WindowAdapter() {         // Thêm để đóng được cửa sổ
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();
+                System.exit(0);
+            }
+        });
         setTitle("AWT Accumulator");
         setSize(350, 120);
         setVisible(true);
     }
+    
 
     public static void main(String[] args) {
         new AWTAccumulator();
