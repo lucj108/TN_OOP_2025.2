@@ -1,9 +1,16 @@
 package hust.soict.hedspi.aims;
 
 import java.util.Scanner;
+
 import hust.soict.hedspi.aims.cart.Cart;
+import hust.soict.hedspi.aims.exception.LimitExceededException;
+import hust.soict.hedspi.aims.exception.PlayerException;
+import hust.soict.hedspi.aims.media.Book;
+import hust.soict.hedspi.aims.media.CompactDisc;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.Playable;
 import hust.soict.hedspi.aims.store.Store;
-import hust.soict.hedspi.aims.media.*;
 
 public class Aims {
 	// 13.1.
@@ -81,26 +88,44 @@ public class Aims {
 					break;
 				case 2: // add to cart
 					System.out.print("Please enter the title of the media: ");
-					title = scanner.nextLine();
-					m = store.searchByTitle(title);
-					if (m == null) {
-						System.out.println("Media not found!");
-					} else {
-						cart.addMedia(m);
-					}
-					break;
+                    title = scanner.nextLine();
+                    m = store.searchByTitle(title);
+                    if (m == null) {
+                        System.out.println("Media not found!");
+                    } else {
+                    	try {
+                    	    cart.addMedia(m);
+                    	} catch (LimitExceededException e) {
+                    	    System.err.println(e.getMessage());
+                    	}
+                    }
+                    break;
 				case 3: // Play
 					System.out.print("Please enter the title of the media: ");
-					title = scanner.nextLine();
-					m = store.searchByTitle(title);
-					if (m == null) {
-						System.out.println("Media not found!");
-					} else if (m instanceof Playable) {
-						((Playable) m).play(); 
-					} else {
-						System.out.println("This media cannot be played!");
-					}
-					break;
+                    title = scanner.nextLine();
+                    m = store.searchByTitle(title);
+                    if (m == null) {
+                        System.out.println("Media not found!");
+                    } else if (m instanceof Playable) {
+                        try {
+                            ((Playable) m).play(); 
+                        } catch (PlayerException e) {
+                        	System.err.println("Exception: " + e.toString());
+                            e.printStackTrace(); 
+                            
+                            javax.swing.SwingUtilities.invokeLater(() -> {
+                                javax.swing.JFrame frame = new javax.swing.JFrame();
+                                frame.setAlwaysOnTop(true); 
+                                javax.swing.JOptionPane.showMessageDialog(frame, 
+                                        e.getMessage(), 
+                                        "Playback Error", 
+                                        javax.swing.JOptionPane.ERROR_MESSAGE);
+                                frame.dispose(); 
+                            });        }
+                    } else {
+                        System.out.println("This media cannot be played!");
+                    }
+                    break;
 				case 4: // Xem giỏ hàng
 					viewCart(cart, scanner); 
 					System.out.println("Chuyen sang xem gio hang...");
@@ -122,21 +147,35 @@ public class Aims {
 			scanner.nextLine();
 
 			switch (choice) {
-				case 1:
-					cart.addMedia(m);
-					break;
+			case 1:
+			    try {
+			        cart.addMedia(m);
+			    } catch (LimitExceededException e) {
+			        System.err.println(e.getMessage());
+			    }
+			    break;
 				case 2:
-					if (m instanceof Playable) {
-						((Playable)m).play();
-					} else {
-						System.out.println("This media cannot be played!");
-					}
-					break;
-				case 0:
-					break;
-				default:
-					System.out.println("Invalid choice!");
-					break;
+				    if (m instanceof Playable) {
+				        try {
+				            ((Playable) m).play();
+				        } catch (PlayerException e) {
+				        	System.err.println("Exception: " + e.toString());
+				            e.printStackTrace(); 
+				            
+				            javax.swing.SwingUtilities.invokeLater(() -> {
+				                javax.swing.JFrame frame = new javax.swing.JFrame();
+				                frame.setAlwaysOnTop(true); 
+				                javax.swing.JOptionPane.showMessageDialog(frame, 
+				                        e.getMessage(), 
+				                        "Playback Error", 
+				                        javax.swing.JOptionPane.ERROR_MESSAGE);
+				                frame.dispose(); 
+				            });
+				        }
+				    } else {
+				        System.out.println("This media cannot be played!");
+				    }
+				    break;
 			}
 		}
 	}
@@ -264,8 +303,26 @@ public class Aims {
                     System.out.print("Enter title to play: ");
                     String playTitle = scanner.nextLine();
                     Media playMedia = cart.searchByTitle(playTitle);
-                    if (playMedia instanceof Playable) ((Playable) playMedia).play();
-                    else System.out.println("Can't play!");
+                    if (playMedia instanceof Playable) {
+                        try {
+                            ((Playable) playMedia).play();
+                        } catch (PlayerException e) {
+                        	System.err.println("Exception: " + e.toString());
+                            e.printStackTrace(); 
+                            
+                            javax.swing.SwingUtilities.invokeLater(() -> {
+                                javax.swing.JFrame frame = new javax.swing.JFrame();
+                                frame.setAlwaysOnTop(true); 
+                                javax.swing.JOptionPane.showMessageDialog(frame, 
+                                        e.getMessage(), 
+                                        "Playback Error", 
+                                        javax.swing.JOptionPane.ERROR_MESSAGE);
+                                frame.dispose(); 
+                            });
+                        }
+                    } else {
+                        System.out.println("Can't play!");
+                    }
                     break;
                 case 5: // Place order
                     System.out.println("An order has been created successfully!");
@@ -293,6 +350,10 @@ public class Aims {
         DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", 
         		"Animation", 18.99f);
         store.addMedia(dvd3);
+        
+        // Thêm thử một DVD có length = 0 để test ngoại lệ
+        DigitalVideoDisc dvd4 = new DigitalVideoDisc("temp", "Animation", "Director X", 0, 10.0f);
+        store.addMedia(dvd4);
         
         int choice = -1;
 		while (choice != 0) {
