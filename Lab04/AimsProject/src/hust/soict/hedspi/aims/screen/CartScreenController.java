@@ -148,7 +148,7 @@ public class CartScreenController {
         
         cart.getItemsOrdered().clear();
     }
-
+    
     @FXML
     void btnPlayPressed(javafx.event.ActionEvent event) {
         Media media = tblMedia.getSelectionModel().getSelectedItem();
