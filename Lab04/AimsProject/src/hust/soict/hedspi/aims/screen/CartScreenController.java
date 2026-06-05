@@ -1,8 +1,11 @@
 package hust.soict.hedspi.aims.screen;
 
+import javax.swing.SwingUtilities;
+
 import hust.soict.hedspi.aims.cart.Cart;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.media.Playable;
+import hust.soict.hedspi.aims.store.Store;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
@@ -19,6 +22,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class CartScreenController {
     
     private Cart cart;
+    private Store store; 
+
+    public CartScreenController(Store store, Cart cart) {
+        super();
+        this.store = store;
+        this.cart = cart;
+    }
     
     @FXML
     private TableView<Media> tblMedia;
@@ -32,9 +42,10 @@ public class CartScreenController {
     @FXML
     private TableColumn<Media, Float> colMediaCost;
     
-    public CartScreenController(Cart cart) {
+    public CartScreenController(Cart cart, Store store) {
         super();
         this.cart = cart;
+        this.store = store;
     }
     
     @FXML
@@ -176,6 +187,38 @@ public class CartScreenController {
                 alert.setContentText("This media type cannot be played!");
                 alert.showAndWait();
             }
+        }
+    }
+    
+    @FXML
+    void btnAddBookPressed(ActionEvent event) {
+        new AddBookToStoreScreen(store, cart); 
+    }
+
+    @FXML
+    void btnAddCDPressed(ActionEvent event) {
+        new AddCompactDiscToStoreScreen(store, cart);
+    }
+
+    @FXML
+    void btnAddDVDPressed(ActionEvent event) {
+        new AddDigitalVideoDiscToStoreScreen(store, cart);
+    }
+    
+    @FXML
+    void btnViewStorePressed(ActionEvent event) {
+    	SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new StoreScreen(store, cart);
+            }
+        });
+
+        try {
+            javafx.stage.Stage stage = (javafx.stage.Stage) tblMedia.getScene().getWindow();
+            stage.close();
+        } catch (Exception e) {
+            System.out.println("Cửa sổ JFX đã được ẩn");
         }
     }
 }

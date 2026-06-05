@@ -85,7 +85,7 @@ public class StoreScreen extends JFrame {
         
         JMenuItem viewCart = new JMenuItem("View cart");
         viewCart.addActionListener(e -> {
-            new CartScreen(cart); 
+            new CartScreen(store, cart); 
             dispose();
         });
         menu.add(viewCart);

@@ -55,7 +55,7 @@ public abstract class AddItemToStoreScreen extends JFrame {
         menu.add(viewStore);
 
         JMenuItem viewCart = new JMenuItem("View cart");
-        viewCart.addActionListener(e -> { new CartScreen(cart); dispose(); });
+        viewCart.addActionListener(e -> { new CartScreen(store, cart); dispose(); });
         menu.add(viewCart);
 
         JMenuBar menuBar = new JMenuBar();

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import hust.soict.hedspi.aims.cart.Cart;
 import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.store.Store;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
@@ -14,10 +15,10 @@ import javafx.scene.Scene;
 
 public class CartScreen extends JFrame {
     private Cart cart;
-
-    public CartScreen(Cart cart) {
+    private Store store;
+    public CartScreen(Store store, Cart cart) {
         super();
-        
+        this.store = store;
         this.cart = cart;
         
         JFXPanel fxPanel = new JFXPanel();
@@ -27,6 +28,7 @@ public class CartScreen extends JFrame {
         this.setVisible(true);
         this.setSize(1024, 768); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Platform.setImplicitExit(false); 
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -34,7 +36,7 @@ public class CartScreen extends JFrame {
                     FXMLLoader loader = new FXMLLoader(getClass()
                             .getResource("cart.fxml"));
                     CartScreenController controller = 
-                            new CartScreenController(cart);
+                            new CartScreenController(cart, store);
                     loader.setController(controller);
                     Parent root = loader.load();
                     fxPanel.setScene(new Scene(root));
@@ -49,7 +51,7 @@ public class CartScreen extends JFrame {
     // Test
     public static void main(String[] args) {
         Cart cart = new Cart();
-
+        Store store = new Store();
         DigitalVideoDisc media1 = new DigitalVideoDisc("DVD1's Title", "category 1", "Director", 100, 7.87f);
         DigitalVideoDisc media2 = new DigitalVideoDisc("CD2's Title", "category 2", "Director", 100, 19.21f);
         DigitalVideoDisc media3 = new DigitalVideoDisc("Book3's Title", "category 3", "Director", 100, 14.61f);
@@ -58,6 +60,6 @@ public class CartScreen extends JFrame {
         cart.addMedia(media2);
         cart.addMedia(media3);
 
-        new CartScreen(cart);
+        new CartScreen(store, cart);
     }
 }
