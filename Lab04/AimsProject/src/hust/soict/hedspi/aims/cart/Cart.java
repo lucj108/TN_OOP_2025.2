@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import hust.soict.hedspi.aims.exception.LimitExceededException;
 import hust.soict.hedspi.aims.media.Media;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,15 +26,15 @@ public class Cart {
         return sum;
     }
     
-	public void addMedia(Media media) {
-        if (!itemsOrdered.contains(media)) {
-            itemsOrdered.add(media);
-            System.out.println("The media has been added.");
-        } else {
-            System.out.println("The media is already in the cart.");
-        }
-    }
-
+	public void addMedia(Media m) throws LimitExceededException {
+	    if (itemsOrdered.size() < MAX_NUMBERS_ORDERED) {
+	        itemsOrdered.add(m);
+	        System.out.println("The media has been added.");
+	    } else {
+	        throw new LimitExceededException("ERROR: The number of "
+	        		+ "media has reached its limit");
+	    }
+	}
     public void removeMedia(Media media) {
         if (itemsOrdered.contains(media)) {
             itemsOrdered.remove(media);

@@ -36,7 +36,7 @@ public class CartScreen extends JFrame {
                     FXMLLoader loader = new FXMLLoader(getClass()
                             .getResource("cart.fxml"));
                     CartScreenController controller = 
-                            new CartScreenController(cart, store);
+                            new CartScreenController(store, cart);
                     loader.setController(controller);
                     Parent root = loader.load();
                     fxPanel.setScene(new Scene(root));
@@ -45,21 +45,5 @@ public class CartScreen extends JFrame {
                 }
             }	
         });
-    }
-    
-    
-    // Test
-    public static void main(String[] args) {
-        Cart cart = new Cart();
-        Store store = new Store();
-        DigitalVideoDisc media1 = new DigitalVideoDisc("DVD1's Title", "category 1", "Director", 100, 7.87f);
-        DigitalVideoDisc media2 = new DigitalVideoDisc("CD2's Title", "category 2", "Director", 100, 19.21f);
-        DigitalVideoDisc media3 = new DigitalVideoDisc("Book3's Title", "category 3", "Director", 100, 14.61f);
-
-        cart.addMedia(media1);
-        cart.addMedia(media2);
-        cart.addMedia(media3);
-
-        new CartScreen(store, cart);
     }
 }

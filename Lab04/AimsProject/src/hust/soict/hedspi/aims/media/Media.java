@@ -36,7 +36,13 @@ public abstract class Media {
 		return cost;
 	}
 
-
+	public void setCost(float cost) throws IllegalArgumentException {
+	    if (cost < 0) {
+	        throw new IllegalArgumentException("ERROR: Cost cannot be negative.");
+	    }
+	    this.cost = cost;
+	}
+	
 	public Media(String title, String category, float cost) {
         this.title = title;
         this.category = category;

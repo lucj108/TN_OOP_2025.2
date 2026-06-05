@@ -26,6 +26,9 @@ public class CartScreenController {
 
     public CartScreenController(Store store, Cart cart) {
         super();
+        if (store == null || cart == null) {
+            throw new IllegalArgumentException("Store or Cart cannot be null");
+        }
         this.store = store;
         this.cart = cart;
     }
@@ -41,12 +44,6 @@ public class CartScreenController {
     
     @FXML
     private TableColumn<Media, Float> colMediaCost;
-    
-    public CartScreenController(Cart cart, Store store) {
-        super();
-        this.cart = cart;
-        this.store = store;
-    }
     
     @FXML
     private Button btnPlay;
@@ -115,7 +112,16 @@ public class CartScreenController {
     @FXML
     void btnRemovePressed(ActionEvent event) {
         Media media = tblMedia.getSelectionModel().getSelectedItem();
-        cart.removeMedia(media);
+        if (media != null) {
+            try {
+                cart.removeMedia(media);
+            } catch (Exception e) { 
+                javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+                alert.setTitle("Remove Error");
+                alert.setContentText(e.getMessage());
+                alert.showAndWait();
+            }
+        }
     }
     
     void showFilteredMedia(String filter) {

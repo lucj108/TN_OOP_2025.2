@@ -16,13 +16,11 @@ public class Book extends Media {
 		}
 	}
 	
-	public void removeAuthor(String name) {
-		if (authors.contains(name)) {
-			authors.remove(name);
-			System.out.println("Author has been removed!");
-		} else {
-			System.out.println("The author does not exist!");
-		}
+	public void removeAuthor(String authorName) throws Exception {
+	    if (!authors.contains(authorName)) {
+	        throw new Exception("ERROR: Author " + authorName + " is not listed in this book.");
+	    }
+	    authors.remove(authorName);
 	}
 	public Book(String title, String category, float cost) {
 		super(title, category, cost);
